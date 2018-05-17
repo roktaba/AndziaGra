@@ -9,7 +9,7 @@ Cake::Cake()
     }
     wskmobTexture = &mobTexture;
     mobSprite.setTexture(*wskmobTexture);
-    mobSprite.setPosition(400, 200);
+    mobSprite.setPosition(100, 500);
     imgHeight = (mobTexture.getSize().y/4);
     imgWidth = (mobTexture.getSize().x/9);
     hp = 1;

@@ -17,7 +17,6 @@ class Engine :public sf::RenderWindow
         Engine();
         ~Engine();
         int runGame(sf::RenderWindow &window);
-        bool collider(sf::Sprite &main, sf::Sprite &other, float push, sf::Vector2f mainPos);
 };
 
 #endif // ENGINE_H

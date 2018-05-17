@@ -14,22 +14,23 @@ class Player :public sf::Drawable,
         sf::Texture *wskplayerTexture;
         sf::Vector2f velocity;
         sf::Clock timer;
+        sf::Vector2f prevPos;
         float mvspeed;
-        float ground;
         float imgWidth, imgHeight;
         int imgCounter;
         bool canJump;
         float jumpHeight;
 
+
         virtual void draw(sf::RenderTarget &target,sf::RenderStates states) const;
 
     public:
-        sf::Vector2f prevPos;
-        sf::Sprite playerSprite;
         Player();
         ~Player();
-        void uptade(float dt, int acceleration);
+        sf::Sprite playerSprite;
+        void uptade(float dt);
         void setJump();
+        bool collision(float push, sf::Sprite &other);
 };
 
 #endif // PLAYER_H
