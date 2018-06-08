@@ -20,14 +20,13 @@ class Player :public sf::Drawable,
         int imgCounter;
         bool canJump;
         float jumpHeight;
-
+        sf::Sprite playerSprite;
 
         virtual void draw(sf::RenderTarget &target,sf::RenderStates states) const;
 
     public:
         Player();
         ~Player();
-        sf::Sprite playerSprite;
         void uptade(float dt);
         void setJump();
         bool collision(float push, sf::Sprite &other);
