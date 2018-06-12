@@ -13,14 +13,15 @@ class Engine :public sf::RenderWindow
     private:
         Player player1;
         int acceleration;
-        int tabLvl [6][10];
+        int tabLvl [10][10];
         bool mapLoaded;
+        int mapCounter;
 
     public:
         Engine();
         ~Engine();
         int runGame(sf::RenderWindow &window);
-        void loadMap();
+
 };
 
 #endif // ENGINE_H

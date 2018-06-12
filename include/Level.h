@@ -21,6 +21,8 @@ class Level  :public sf::Drawable, sf::Transformable
         sf::Sprite tileMap;
         Level();
         ~Level();
+        void setNewPossiotion(int i, int j);
+        void changeTexture(int counter);
 };
 
 #endif // LEVEL_H
