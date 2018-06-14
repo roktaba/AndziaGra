@@ -15,9 +15,10 @@ Engine::~Engine()
 int Engine::runGame(sf::RenderWindow &window)
 {
     Player player1;
-
+    sf::View view(sf::Vector2f(0, 0), sf::Vector2f(1280, 960));
     std::vector <Level> platform;
     Level lvl;
+    Background lvl1Background(window.getSize().x, window.getSize().y);
     if (mapLoaded==false)
     {
     std::ifstream plik;
@@ -78,7 +79,11 @@ int Engine::runGame(sf::RenderWindow &window)
             player1.collision(0.0, platform[i].tileMap);
         }
         //ciastko[0].uptade(dt, acceleration);
+        view.setCenter((player1.getPlayerPos().x +300), (window.getSize().y/2));
         window.clear();
+        window.setView(view);
+        lvl1Background.setPos(player1.getPlayerPos().x);
+        window.draw(lvl1Background);
         for (int i=0; i<platform.size(); i++)
         {
             window.draw(platform[i]);

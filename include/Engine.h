@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Cake.h"
 #include "Level.h"
+#include "Background.h"
 
 
 class Engine :public sf::RenderWindow
@@ -13,7 +14,7 @@ class Engine :public sf::RenderWindow
     private:
         Player player1;
         int acceleration;
-        int tabLvl [10][10];
+        int tabLvl [10][50];
         bool mapLoaded;
         int mapCounter;
 

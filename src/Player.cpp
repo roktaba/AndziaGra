@@ -152,3 +152,8 @@ bool Player::collision(float push, sf::Sprite &other)
     }
     return false;
 }
+
+sf::Vector2f Player::getPlayerPos()
+{
+    return playerSprite.getPosition();
+}

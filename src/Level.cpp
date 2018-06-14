@@ -28,7 +28,7 @@ void Level::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 void Level::setNewPossiotion(int i, int j)
 {
-    tileMap.setPosition((i*imgHeight*1.5), (j*imgWidth*1.5));
+    tileMap.setPosition(((i*imgHeight*1.5)-3*imgWidth), (j*imgWidth*1.5));
 }
 
 void Level::changeTexture(int counter)

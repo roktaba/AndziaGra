@@ -30,6 +30,7 @@ class Player :public sf::Drawable,
         void uptade(float dt);
         void setJump();
         bool collision(float push, sf::Sprite &other);
+        sf::Vector2f getPlayerPos();
 };
 
 #endif // PLAYER_H
