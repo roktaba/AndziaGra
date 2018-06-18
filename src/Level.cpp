@@ -7,9 +7,9 @@ Level::Level()
         MessageBox(0,"Textures not found!","ERROR",0);
         return;
     }
-    wskTileMapTexture = &tileMapTexture;
-    tileMap.setTexture(*wskTileMapTexture);
-    imgHeight = (tileMapTexture.getSize().y/8);
+
+    tileMap.setTexture(tileMapTexture);
+    imgHeight = (tileMapTexture.getSize().y/7);
     imgWidth = (tileMapTexture.getSize().x/13);
     tileMap.setTextureRect(sf::IntRect (0, 0, imgWidth, imgHeight));
     tileMap.setScale(1.5, 1.5);

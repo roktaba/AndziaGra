@@ -20,7 +20,7 @@ Player::Player()
     playerSprite.scale(0.5, 0.5);
     imgCounter = 0;
     canJump = true;
-    jumpHeight = 220;
+    jumpHeight = 210;
     timer.restart();
 }
 
