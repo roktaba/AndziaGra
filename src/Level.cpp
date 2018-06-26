@@ -63,8 +63,3 @@ void Level::changeTexture(int counter)
         break;
     }
 }
-
-sf::Sprite Level::mapTexture()
-{
-    return tileMap;
-}

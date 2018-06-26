@@ -91,8 +91,7 @@ int Engine::runGame(sf::RenderWindow &window)
        // player1.collision(0.0, ciastko[0].mobSprite);
         for (int i=0; i<platform.size(); i++)
         {
-            sf::Sprite sprite = platform[i].mapTexture();
-            player1.collision(0.0, sprite);
+            player1.collision(0.0, platform[i].tileMap);
         }
         //ciastko[0].uptade(dt, acceleration);
         view.setCenter((player1.getPlayerPos().x +300), (window.getSize().y/2));

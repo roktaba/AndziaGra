@@ -122,22 +122,22 @@ bool Player::collision(float push, sf::Sprite &other)
             {
                 playerSprite.move(intersectX * (1.0 - push), 0.0f);
                 other.move(-intersectX * push, 0.0f);
+                return true;
 
             }
             else
             {
                 playerSprite.move(-intersectX * (1.0 - push), 0.0f);
                 other.move(intersectX * push, 0.0f);
-
+                return true;
             }
         }
         else
         {
             if (deltaY > 0.0f)
             {
-               // playerSprite.move(0.0f, intersectY* (1.0f - push));
-               // other.move(0.0f, -intersectY * push);
-
+                playerSprite.move(0.0f, intersectY* (1.0f - push));
+                other.move(0.0f, -intersectY * push);
                 playerSprite.setPosition(playerSprite.getPosition().x, prevPos.y);
                 velocity.y = 0.0;
                 setJump();
@@ -145,10 +145,11 @@ bool Player::collision(float push, sf::Sprite &other)
             }
             else
             {
-               // playerSprite.move(0.0f, -intersectY * (1.0f - push));
-                //other.move(0.0f, intersectY * push);
+                playerSprite.move(0.0f, -intersectY * (1.0f - push));
+                other.move(0.0f, intersectY * push);
                 playerSprite.setPosition(playerSprite.getPosition().x, prevPos.y);
-                velocity.y = 0.0;
+                if (velocity.y < 0)
+                    velocity.y  = 0.0;
                 return true;
             }
         }

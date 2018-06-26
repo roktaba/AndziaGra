@@ -15,15 +15,13 @@ class Level  :public sf::Drawable, sf::Transformable
         sf::Texture tileMapTexture;
         sf::Texture *wskTileMapTexture;
         float imgWidth, imgHeight;
-        sf::Sprite tileMap;
-
 
     public:
+        sf::Sprite tileMap;
         Level();
         ~Level();
         void setNewPossiotion(int i, int j);
         void changeTexture(int counter);
-        sf::Sprite mapTexture();
 };
 
 #endif // LEVEL_H
