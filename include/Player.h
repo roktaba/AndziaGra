@@ -21,6 +21,7 @@ class Player :public sf::Drawable,
         bool canJump;
         float jumpHeight;
         sf::Sprite playerSprite;
+        bool life;
 
         virtual void draw(sf::RenderTarget &target,sf::RenderStates states) const;
 
@@ -31,6 +32,8 @@ class Player :public sf::Drawable,
         void setJump();
         bool collision(float push, sf::Sprite &other);
         sf::Vector2f getPlayerPos();
+        void changeLifeStatus();
+        bool checkLife(double y);
 };
 
 #endif // PLAYER_H

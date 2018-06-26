@@ -44,7 +44,27 @@ void Level::changeTexture(int counter)
     case 3:
         tileMap.setTextureRect (sf::IntRect(imgWidth+imgWidth, 0, imgWidth, imgHeight));
         break;
+    case 4:
+        tileMap.setTextureRect (sf::IntRect(imgWidth*3, 0, imgWidth, imgHeight));
+        break;
+    case 5:
+        tileMap.setTextureRect (sf::IntRect(imgWidth*3, imgHeight, imgWidth, imgHeight));
+        break;
+    case 6:
+        tileMap.setTextureRect (sf::IntRect(0, imgHeight, imgWidth, imgHeight));
+        break;
+    case 7:
+        tileMap.setTextureRect (sf::IntRect(imgWidth, imgHeight, imgWidth, imgHeight));
+        break;
+    case 8:
+        tileMap.setTextureRect (sf::IntRect(imgWidth*2, imgHeight, imgWidth, imgHeight));
+        break;
     default:
         break;
     }
+}
+
+sf::Sprite Level::mapTexture()
+{
+    return tileMap;
 }

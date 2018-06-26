@@ -17,6 +17,7 @@ int Engine::runGame(sf::RenderWindow &window)
     Player player1;
     sf::View view(sf::Vector2f(0, 0), sf::Vector2f(1280, 960));
     std::vector <Level> platform;
+    std::vector <Level> platformNonCol;
     Level lvl;
     Background lvl1Background(window.getSize().x, window.getSize().y);
     if (mapLoaded==false)
@@ -40,17 +41,24 @@ int Engine::runGame(sf::RenderWindow &window)
                 tabLvl[j][i] = (line[i] - '0');
                 if (tabLvl[j][i] != 0)
                 {
-                    platform.push_back(lvl);
-                    platform[platform.size()-1].setNewPossiotion(i, j);
-                    platform[platform.size()-1].changeTexture(tabLvl[j][i]);
+                    if ((tabLvl[j][i] == 1)||(tabLvl[j][i] == 2)||(tabLvl[j][i] == 3)||(tabLvl[j][i] == 6)||(tabLvl[j][i] == 7)||(tabLvl[j][i] == 8))
+                    {
+                        platform.push_back(lvl);
+                        platform[platform.size()-1].setNewPossiotion(i, j);
+                        platform[platform.size()-1].changeTexture(tabLvl[j][i]);
+                    }
+                    if ((tabLvl[j][i] == 4)||(tabLvl[j][i] == 5))
+                    {
+                        platformNonCol.push_back(lvl);
+                        platformNonCol[platformNonCol.size()-1].setNewPossiotion(i, j);
+                        platformNonCol[platformNonCol.size()-1].changeTexture(tabLvl[j][i]);
+                    }
                 }
-
             }
         }
     }
     plik.close();
-       // loadMap(platform, lvl);
-        mapLoaded=true;
+    mapLoaded=true;
     }
     std::vector <Cake> ciastko;
     Cake cake1;
@@ -73,10 +81,18 @@ int Engine::runGame(sf::RenderWindow &window)
         }
         float dt = deltaTime.restart().asSeconds();
         player1.uptade(dt);
+        if (!player1.checkLife(window.getSize().y))
+        {
+            view.setCenter((window.getSize().x/2), (window.getSize().y)/2);
+            window.clear();
+            window.setView(view);
+            return 1;
+        }
        // player1.collision(0.0, ciastko[0].mobSprite);
         for (int i=0; i<platform.size(); i++)
         {
-            player1.collision(0.0, platform[i].tileMap);
+            sf::Sprite sprite = platform[i].mapTexture();
+            player1.collision(0.0, sprite);
         }
         //ciastko[0].uptade(dt, acceleration);
         view.setCenter((player1.getPlayerPos().x +300), (window.getSize().y/2));
@@ -87,6 +103,10 @@ int Engine::runGame(sf::RenderWindow &window)
         for (int i=0; i<platform.size(); i++)
         {
             window.draw(platform[i]);
+        }
+        for (int i=0; i<platformNonCol.size(); i++)
+        {
+            window.draw(platformNonCol[i]);
         }
         window.draw(player1);
         window.draw(ciastko[0]);

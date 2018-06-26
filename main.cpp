@@ -40,8 +40,12 @@ while (window.isOpen())
             case GAME:
             {
                 Engine gameEngine;
-                if ((gameEngine.runGame(window)) == 0);
-                    state=GAME_CLOSE;
+                    int i = gameEngine.runGame(window);
+                    if (i==0)
+                        state=GAME_CLOSE;
+                    else
+                    if (i==1)
+                        state=MENU;
                 break;
             }
         }

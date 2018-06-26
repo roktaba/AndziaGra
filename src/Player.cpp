@@ -22,6 +22,7 @@ Player::Player()
     canJump = true;
     jumpHeight = 210;
     timer.restart();
+    life = true;
 }
 
 Player::~Player()
@@ -89,6 +90,7 @@ void Player::uptade(float dt)
     //////////////////////GRAVITY
     velocity.y += 981 * dt;
     playerSprite.move(velocity * dt);
+    canJump=false;
 }
 
 void Player::setJump()
@@ -146,6 +148,7 @@ bool Player::collision(float push, sf::Sprite &other)
                // playerSprite.move(0.0f, -intersectY * (1.0f - push));
                 //other.move(0.0f, intersectY * push);
                 playerSprite.setPosition(playerSprite.getPosition().x, prevPos.y);
+                velocity.y = 0.0;
                 return true;
             }
         }
@@ -156,4 +159,18 @@ bool Player::collision(float push, sf::Sprite &other)
 sf::Vector2f Player::getPlayerPos()
 {
     return playerSprite.getPosition();
+}
+
+void Player::changeLifeStatus()
+{
+    life=false;
+}
+bool Player::checkLife(double y)
+{
+    if (getPlayerPos().y > (y+100))
+        changeLifeStatus();
+    if (life==false)
+        return false;
+    if (life==true)
+        return true;
 }
