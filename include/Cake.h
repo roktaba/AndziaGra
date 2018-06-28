@@ -17,6 +17,7 @@ private:
     sf::Texture *wskmobTexture;
     sf::Vector2f velocity;
     float imgWidth, imgHeight;
+    bool grounded;
 
     virtual void draw(sf::RenderTarget &target,sf::RenderStates states) const;
 
@@ -24,7 +25,10 @@ private:
         sf::Sprite mobSprite;
         Cake();
         ~Cake();
-    void uptade(float dt, int acceleration);
+    void uptade(float dt);
+    bool collision(float push, sf::Sprite &other);
+    void changeDirection();
+
 };
 
 #endif // CAKE_H

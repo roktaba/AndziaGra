@@ -23,6 +23,7 @@ Player::Player()
     jumpHeight = 210;
     timer.restart();
     life = true;
+    playerSprite.setOrigin(-50, 0);
 }
 
 Player::~Player()
@@ -38,7 +39,7 @@ void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const
 void Player::uptade(float dt)
 {
     velocity.x *= 0.0;
-    prevPos = playerSprite.getPosition();
+   // prevPos = playerSprite.getPosition();
     ///////////////////////RIGHT
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
@@ -122,14 +123,12 @@ bool Player::collision(float push, sf::Sprite &other)
             {
                 playerSprite.move(intersectX * (1.0 - push), 0.0f);
                 other.move(-intersectX * push, 0.0f);
-                return true;
 
             }
             else
             {
                 playerSprite.move(-intersectX * (1.0 - push), 0.0f);
                 other.move(intersectX * push, 0.0f);
-                return true;
             }
         }
         else
@@ -138,21 +137,20 @@ bool Player::collision(float push, sf::Sprite &other)
             {
                 playerSprite.move(0.0f, intersectY* (1.0f - push));
                 other.move(0.0f, -intersectY * push);
-                playerSprite.setPosition(playerSprite.getPosition().x, prevPos.y);
+              //  playerSprite.setPosition(playerSprite.getPosition().x, prevPos.y);
                 velocity.y = 0.0;
                 setJump();
-                return true;
             }
             else
             {
                 playerSprite.move(0.0f, -intersectY * (1.0f - push));
                 other.move(0.0f, intersectY * push);
-                playerSprite.setPosition(playerSprite.getPosition().x, prevPos.y);
+               // playerSprite.setPosition(playerSprite.getPosition().x, prevPos.y);
                 if (velocity.y < 0)
                     velocity.y  = 0.0;
-                return true;
             }
         }
+        return true;
     }
     return false;
 }

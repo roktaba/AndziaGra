@@ -2,7 +2,6 @@
 
 Engine::Engine()
 {
-    acceleration = 0;
     mapLoaded = false;
     mapCounter = 0;
 }
@@ -88,12 +87,20 @@ int Engine::runGame(sf::RenderWindow &window)
             window.setView(view);
             return 1;
         }
-       // player1.collision(0.0, ciastko[0].mobSprite);
+
+        for (int i=0; i<platform.size(); i++)
+        {
+            ciastko[0].collision(0.0, platform[i].tileMap);
+        }
         for (int i=0; i<platform.size(); i++)
         {
             player1.collision(0.0, platform[i].tileMap);
         }
-        //ciastko[0].uptade(dt, acceleration);
+        for (int i=0; i<ciastko.size(); i++)
+        {
+            player1.collision(0.0, ciastko[i].mobSprite);
+        }
+        ciastko[0].uptade(dt);
         view.setCenter((player1.getPlayerPos().x +300), (window.getSize().y/2));
         window.clear();
         window.setView(view);
@@ -108,7 +115,10 @@ int Engine::runGame(sf::RenderWindow &window)
             window.draw(platformNonCol[i]);
         }
         window.draw(player1);
-        window.draw(ciastko[0]);
+        for (int i=0; i<ciastko.size(); i++)
+        {
+            window.draw(ciastko[i]);
+        }
         window.display();
     }
 }
