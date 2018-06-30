@@ -59,6 +59,9 @@ void Level::changeTexture(int counter)
     case 8:
         tileMap.setTextureRect (sf::IntRect(imgWidth*2, imgHeight, imgWidth, imgHeight));
         break;
+    case 72:
+        tileMap.setTextureRect (sf::IntRect(imgWidth*9, 0, imgWidth, imgHeight));
+        break;
     default:
         break;
     }

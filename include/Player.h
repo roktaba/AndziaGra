@@ -14,7 +14,6 @@ class Player :public sf::Drawable,
         sf::Texture *wskplayerTexture;
         sf::Vector2f velocity;
         sf::Clock timer;
-        sf::Vector2f prevPos;
         float mvspeed;
         float imgWidth, imgHeight;
         int imgCounter;

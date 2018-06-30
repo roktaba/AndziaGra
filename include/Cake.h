@@ -16,6 +16,8 @@ private:
     sf::Texture mobTexture;
     sf::Texture *wskmobTexture;
     sf::Vector2f velocity;
+    sf::Clock timer;
+    int imgCounter;
     float imgWidth, imgHeight;
     bool grounded;
 

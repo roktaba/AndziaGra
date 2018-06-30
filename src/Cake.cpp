@@ -16,11 +16,13 @@ Cake::Cake()
     speed = 200;
     canHurt = true;
     isAlive = true;
+    imgCounter = 1;
     velocity.x = 0;
     velocity.y = 0;
     mobSprite.setTextureRect(sf::IntRect (0, 0, imgWidth, imgHeight));
     mobSprite.setOrigin(-15,0);
     grounded = false;
+    timer.restart();
 }
 
 Cake::~Cake()
@@ -35,8 +37,34 @@ void Cake::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 void Cake::uptade(float dt)
 {
-    velocity.x = speed;
+    if (speed > 0)
+    {
+        if (timer.getElapsedTime().asSeconds() >= 0.11)
+        {
+            mobSprite.setTextureRect(sf::IntRect((imgCounter*imgWidth), 0, -imgWidth, imgHeight));
+            timer.restart();
+            imgCounter++;
+            if (imgCounter > 7)
+                imgCounter = 1;
+        }
+    }
+    else
+    {
+        if (timer.getElapsedTime().asSeconds() >= 0.11)
+        {
+            mobSprite.setTextureRect(sf::IntRect((imgCounter*imgWidth), 0, imgWidth, imgHeight));
+            timer.restart();
+            imgCounter++;
+            if (imgCounter > 7)
+                imgCounter = 1;
+        }
+    }
     velocity.y += 981 * dt;
+    if (grounded)
+    {
+        velocity.x = speed;
+        grounded = true;
+    }
     mobSprite.move(velocity * dt);
 }
 
@@ -57,7 +85,6 @@ bool Cake::collision(float push, sf::Sprite &other)
     if (intersectX < 0.0f && intersectY < 0.0f)
     {
         push = std::min(std::max(push, 0.0f), 1.0f);
-
         if (intersectX > intersectY)
         {
             if (deltaX > 0.0f)

@@ -15,7 +15,6 @@ Player::Player()
     playerSprite.setPosition(100, 300);
     velocity.x = 0;
     velocity.y = 0;
-    prevPos = playerSprite.getPosition();
     mvspeed = 350;
     playerSprite.scale(0.5, 0.5);
     imgCounter = 0;
@@ -39,7 +38,6 @@ void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const
 void Player::uptade(float dt)
 {
     velocity.x *= 0.0;
-   // prevPos = playerSprite.getPosition();
     ///////////////////////RIGHT
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
@@ -137,7 +135,6 @@ bool Player::collision(float push, sf::Sprite &other)
             {
                 playerSprite.move(0.0f, intersectY* (1.0f - push));
                 other.move(0.0f, -intersectY * push);
-              //  playerSprite.setPosition(playerSprite.getPosition().x, prevPos.y);
                 velocity.y = 0.0;
                 setJump();
             }
@@ -145,7 +142,6 @@ bool Player::collision(float push, sf::Sprite &other)
             {
                 playerSprite.move(0.0f, -intersectY * (1.0f - push));
                 other.move(0.0f, intersectY * push);
-               // playerSprite.setPosition(playerSprite.getPosition().x, prevPos.y);
                 if (velocity.y < 0)
                     velocity.y  = 0.0;
             }

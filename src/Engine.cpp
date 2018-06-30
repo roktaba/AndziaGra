@@ -17,6 +17,7 @@ int Engine::runGame(sf::RenderWindow &window)
     sf::View view(sf::Vector2f(0, 0), sf::Vector2f(1280, 960));
     std::vector <Level> platform;
     std::vector <Level> platformNonCol;
+    std::vector <Level> platformBlocker;
     Level lvl;
     Background lvl1Background(window.getSize().x, window.getSize().y);
     if (mapLoaded==false)
@@ -52,6 +53,12 @@ int Engine::runGame(sf::RenderWindow &window)
                         platformNonCol[platformNonCol.size()-1].setNewPossiotion(i, j);
                         platformNonCol[platformNonCol.size()-1].changeTexture(tabLvl[j][i]);
                     }
+                    if (tabLvl[j][i] == 72)
+                    {
+                        platformBlocker.push_back(lvl);
+                        platformBlocker[platformBlocker.size()-1].setNewPossiotion(i, j);
+                        platformBlocker[platformBlocker.size()-1].changeTexture(tabLvl[j][i]);
+                    }
                 }
             }
         }
@@ -80,6 +87,7 @@ int Engine::runGame(sf::RenderWindow &window)
         }
         float dt = deltaTime.restart().asSeconds();
         player1.uptade(dt);
+        ciastko[0].uptade(dt);
         if (!player1.checkLife(window.getSize().y))
         {
             view.setCenter((window.getSize().x/2), (window.getSize().y)/2);
@@ -92,6 +100,10 @@ int Engine::runGame(sf::RenderWindow &window)
         {
             ciastko[0].collision(0.0, platform[i].tileMap);
         }
+        for (int i=0; i<platformBlocker.size(); i++)
+        {
+            ciastko[0].collision(0.0, platformBlocker[i].tileMap);
+        }
         for (int i=0; i<platform.size(); i++)
         {
             player1.collision(0.0, platform[i].tileMap);
@@ -100,11 +112,14 @@ int Engine::runGame(sf::RenderWindow &window)
         {
             player1.collision(0.0, ciastko[i].mobSprite);
         }
-        ciastko[0].uptade(dt);
         view.setCenter((player1.getPlayerPos().x +300), (window.getSize().y/2));
         window.clear();
         window.setView(view);
         lvl1Background.setPos(player1.getPlayerPos().x);
+        for (int i=0; i<platformBlocker.size(); i++)
+        {
+            window.draw(platformBlocker[i]);
+        }
         window.draw(lvl1Background);
         for (int i=0; i<platform.size(); i++)
         {
