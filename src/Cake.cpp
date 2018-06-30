@@ -39,7 +39,7 @@ void Cake::uptade(float dt)
 {
     if (speed > 0)
     {
-        if (timer.getElapsedTime().asSeconds() >= 0.11)
+        if (timer.getElapsedTime().asSeconds() >= 0.1)
         {
             mobSprite.setTextureRect(sf::IntRect((imgCounter*imgWidth), 0, -imgWidth, imgHeight));
             timer.restart();
@@ -50,7 +50,7 @@ void Cake::uptade(float dt)
     }
     else
     {
-        if (timer.getElapsedTime().asSeconds() >= 0.11)
+        if (timer.getElapsedTime().asSeconds() >= 0.1)
         {
             mobSprite.setTextureRect(sf::IntRect((imgCounter*imgWidth), 0, imgWidth, imgHeight));
             timer.restart();
@@ -125,4 +125,9 @@ bool Cake::collision(float push, sf::Sprite &other)
 void Cake::changeDirection()
 {
     speed *= -1;
+}
+
+void Cake::setNewPossition(int i, int j, sf::Vector2f tileSize)
+{
+    mobSprite.setPosition(((i*tileSize.y*1.5)-3*tileSize.x), (j*tileSize.x*1.5));
 }

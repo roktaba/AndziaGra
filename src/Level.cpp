@@ -66,3 +66,8 @@ void Level::changeTexture(int counter)
         break;
     }
 }
+
+sf::Vector2f Level::tileSize()
+{
+    return sf::Vector2f (imgWidth, imgHeight);
+}

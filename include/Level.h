@@ -22,6 +22,7 @@ class Level  :public sf::Drawable, sf::Transformable
         ~Level();
         void setNewPossiotion(int i, int j);
         void changeTexture(int counter);
+        sf::Vector2f tileSize();
 };
 
 #endif // LEVEL_H

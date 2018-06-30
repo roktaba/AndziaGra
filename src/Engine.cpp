@@ -18,6 +18,8 @@ int Engine::runGame(sf::RenderWindow &window)
     std::vector <Level> platform;
     std::vector <Level> platformNonCol;
     std::vector <Level> platformBlocker;
+    std::vector <Cake> ciastko;
+    Cake cake1;
     Level lvl;
     Background lvl1Background(window.getSize().x, window.getSize().y);
     if (mapLoaded==false)
@@ -59,18 +61,17 @@ int Engine::runGame(sf::RenderWindow &window)
                         platformBlocker[platformBlocker.size()-1].setNewPossiotion(i, j);
                         platformBlocker[platformBlocker.size()-1].changeTexture(tabLvl[j][i]);
                     }
+                    if (tabLvl[j][i] == 17)
+                    {
+                        ciastko.push_back(cake1);
+                        ciastko[ciastko.size()-1].setNewPossition(i, j, platform[0].tileSize());
+                    }
                 }
             }
         }
     }
     plik.close();
     mapLoaded=true;
-    }
-    std::vector <Cake> ciastko;
-    Cake cake1;
-    for (int i=0; i<1; i++)
-    {
-        ciastko.push_back(cake1);
     }
     sf::Clock deltaTime;
     while (true)
@@ -85,9 +86,13 @@ int Engine::runGame(sf::RenderWindow &window)
             return 0;
             break;
         }
+        //UPTADE PART//
         float dt = deltaTime.restart().asSeconds();
         player1.uptade(dt);
-        ciastko[0].uptade(dt);
+        for (int i=0; i<ciastko.size(); i++)
+        {
+            ciastko[i].uptade(dt);
+        }
         if (!player1.checkLife(window.getSize().y))
         {
             view.setCenter((window.getSize().x/2), (window.getSize().y)/2);
@@ -95,14 +100,20 @@ int Engine::runGame(sf::RenderWindow &window)
             window.setView(view);
             return 1;
         }
-
-        for (int i=0; i<platform.size(); i++)
+        //COLLISION PART//
+        for (int j=0; j<ciastko.size(); j++)
         {
-            ciastko[0].collision(0.0, platform[i].tileMap);
+            for (int i=0; i<platform.size(); i++)
+            {
+                ciastko[j].collision(0.0, platform[i].tileMap);
+            }
         }
-        for (int i=0; i<platformBlocker.size(); i++)
+        for (int j=0; j<ciastko.size(); j++)
         {
-            ciastko[0].collision(0.0, platformBlocker[i].tileMap);
+            for (int i=0; i<platformBlocker.size(); i++)
+            {
+                ciastko[j].collision(0.0, platformBlocker[i].tileMap);
+            }
         }
         for (int i=0; i<platform.size(); i++)
         {
@@ -116,6 +127,7 @@ int Engine::runGame(sf::RenderWindow &window)
         window.clear();
         window.setView(view);
         lvl1Background.setPos(player1.getPlayerPos().x);
+        //DRAW PART//
         for (int i=0; i<platformBlocker.size(); i++)
         {
             window.draw(platformBlocker[i]);
