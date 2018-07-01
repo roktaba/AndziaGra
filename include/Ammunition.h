@@ -22,7 +22,7 @@ public:
     sf::Sprite ammoSprite;
     Ammunition();
     ~Ammunition();
-    void setNewPossition(sf::Vector2f newPos);
+    virtual void setNewPossition(sf::Vector2f newPos);
 };
 
 #endif // AMMUNITION_H

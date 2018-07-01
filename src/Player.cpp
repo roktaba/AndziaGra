@@ -90,12 +90,12 @@ void Player::uptade(float dt)
                 AmmoH.push_back(ammunitionHearts);
                 AmmoH[AmmoH.size()-1].setNewPossition(playerSprite.getPosition());
             }
-            //playerSprite.setTextureRect(sf::IntRect(((8*imgWidth)+62), (imgCounter * imgHeight), imgWidth-95, imgHeight));
             ammoTimer.restart();
-           // imgCounter++;
-           // if (imgCounter > 2)
-            //    imgCounter = 1;
         }
+    }
+    for (int i=0; i<AmmoH.size(); i++)
+    {
+        AmmoH[i].uptade(dt);
     }
 
     /////////////////////JUMP
@@ -104,7 +104,6 @@ void Player::uptade(float dt)
         canJump=false;
         velocity.y = -sqrtf(2.0 * 981 * jumpHeight);
     }
-
     //////////////////////GRAVITY
     velocity.y += 981 * dt;
     playerSprite.move(velocity * dt);

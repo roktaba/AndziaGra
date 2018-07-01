@@ -14,6 +14,7 @@ private:
 public:
     AmmoHeart();
     ~AmmoHeart();
+    void uptade(float dt);
 };
 
 #endif // AMMOHEART_H
