@@ -21,6 +21,7 @@ Player::Player()
     canJump = true;
     jumpHeight = 210;
     timer.restart();
+    ammoTimer.restart();
     life = true;
     playerSprite.setOrigin(-50, 0);
 }
@@ -76,6 +77,24 @@ void Player::uptade(float dt)
             imgCounter++;
             if (imgCounter > 2)
                 imgCounter = 1;
+        }
+    }
+
+    //////////////////////AMMOH SHOOT
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+        if (ammoTimer.getElapsedTime().asSeconds() >= 1.0)
+        {
+            if (AmmoH.size()<10)
+            {
+                AmmoH.push_back(ammunitionHearts);
+                AmmoH[AmmoH.size()-1].setNewPossition(playerSprite.getPosition());
+            }
+            //playerSprite.setTextureRect(sf::IntRect(((8*imgWidth)+62), (imgCounter * imgHeight), imgWidth-95, imgHeight));
+            ammoTimer.restart();
+           // imgCounter++;
+           // if (imgCounter > 2)
+            //    imgCounter = 1;
         }
     }
 
@@ -168,4 +187,12 @@ bool Player::checkLife(double y)
         return false;
     if (life==true)
         return true;
+}
+
+void Player::drawAmmo(sf::RenderWindow &window)
+{
+    for (int i=0; i<AmmoH.size(); i++)
+    {
+        window.draw(AmmoH[i]);
+    }
 }

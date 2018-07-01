@@ -146,6 +146,7 @@ int Engine::runGame(sf::RenderWindow &window)
         {
             window.draw(ciastko[i]);
         }
+        player1.drawAmmo(window);
         window.display();
     }
 }
