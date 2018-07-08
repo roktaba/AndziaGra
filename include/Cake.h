@@ -8,7 +8,7 @@
 class Cake :public sf::Drawable,
     sf::Transformable
 {
-private:
+protected:
     int hp;
     int speed;
     bool canHurt;

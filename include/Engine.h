@@ -7,6 +7,7 @@
 #include "Cake.h"
 #include "Level.h"
 #include "Background.h"
+#include "DeathCake.h"
 
 
 class Engine :public sf::RenderWindow

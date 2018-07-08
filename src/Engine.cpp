@@ -19,6 +19,8 @@ int Engine::runGame(sf::RenderWindow &window)
     std::vector <Level> platformNonCol;
     std::vector <Level> platformBlocker;
     std::vector <Cake> ciastko;
+    std::vector <DeathCake> martweCiastko;
+    DeathCake DCiastko;
     Cake cake1;
     Level lvl;
     Background lvl1Background(window.getSize().x, window.getSize().y);
@@ -93,6 +95,10 @@ int Engine::runGame(sf::RenderWindow &window)
         {
             ciastko[i].uptade(dt);
         }
+        for (int i=0; i<martweCiastko.size(); i++)
+        {
+            martweCiastko[i].uptade(dt);
+        }
         if (!player1.checkLife(window.getSize().y))
         {
             view.setCenter((window.getSize().x/2), (window.getSize().y)/2);
@@ -131,6 +137,8 @@ int Engine::runGame(sf::RenderWindow &window)
         {
              if (player1.arrowCollision(ciastko[i].mobSprite, true))
             {
+                martweCiastko.push_back(DCiastko);
+                martweCiastko[martweCiastko.size()-1].setNewPossition(ciastko[i].mobSprite.getPosition().x, ciastko[i].mobSprite.getPosition().y);
                 ciastko.erase(ciastko.begin()+i);
             }
         }
@@ -156,6 +164,10 @@ int Engine::runGame(sf::RenderWindow &window)
         for (int i=0; i<ciastko.size(); i++)
         {
             window.draw(ciastko[i]);
+        }
+        for (int i=0; i<martweCiastko.size(); i++)
+        {
+            window.draw(martweCiastko[i]);
         }
         player1.drawAmmo(window);
         window.display();
