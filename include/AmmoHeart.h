@@ -15,6 +15,8 @@ public:
     AmmoHeart();
     ~AmmoHeart();
     void uptade(float dt);
+    bool ammoRangeCheck();
+    void changeDirection();
 };
 
 #endif // AMMOHEART_H

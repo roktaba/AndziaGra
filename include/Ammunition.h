@@ -4,12 +4,12 @@
 #include <windows.h>
 #include <iostream>
 
-
 class Ammunition :public sf::Drawable, sf::Transformable
 {
 protected:
     int ammoCounter;
     int ammoRange;
+    int ammoWay;
     int ammoSpeed;
     int ammoDmg;
     sf::Vector2f ammoVelocity;
@@ -22,7 +22,8 @@ public:
     sf::Sprite ammoSprite;
     Ammunition();
     ~Ammunition();
-    virtual void setNewPossition(sf::Vector2f newPos);
+    void setNewPossition(sf::Vector2f newPos);
+    bool ammoCollision(float push, sf::Sprite &other);
 };
 
 #endif // AMMUNITION_H

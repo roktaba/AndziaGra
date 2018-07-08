@@ -119,9 +119,20 @@ int Engine::runGame(sf::RenderWindow &window)
         {
             player1.collision(0.0, platform[i].tileMap);
         }
+        for (int i=0; i<platform.size(); i++)
+        {
+            player1.arrowCollision(platform[i].tileMap, false);
+        }
         for (int i=0; i<ciastko.size(); i++)
         {
             player1.collision(0.0, ciastko[i].mobSprite);
+        }
+        for (int i=0; i<ciastko.size(); i++)
+        {
+             if (player1.arrowCollision(ciastko[i].mobSprite, true))
+            {
+                ciastko.erase(ciastko.begin()+i);
+            }
         }
         view.setCenter((player1.getPlayerPos().x +300), (window.getSize().y/2));
         window.clear();

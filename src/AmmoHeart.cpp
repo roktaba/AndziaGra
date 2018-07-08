@@ -2,18 +2,13 @@
 
 AmmoHeart::AmmoHeart()
 {
-    if(!heartTexture.loadFromFile("textures/hearts.png"))
+    if(!heartTexture.loadFromFile("textures/arrowheart.png"))
     {
         MessageBox(0,"Textures not found!","ERROR",0);
         return;
     }
     wskHeartTexture = &heartTexture;
     ammoSprite.setTexture(*wskHeartTexture);
-    ammoSprite.setPosition(100, 500);
-    imgHeight = (heartTexture.getSize().y);
-    imgWidth =
-     (heartTexture.getSize().x/6);
-    ammoSprite.setTextureRect(sf::IntRect (0, 0, imgWidth, imgHeight));
 }
 
 AmmoHeart::~AmmoHeart()
@@ -23,12 +18,19 @@ AmmoHeart::~AmmoHeart()
 
 void AmmoHeart::uptade(float dt)
 {
-    if (timer.getElapsedTime().asSeconds() >= 0.2)
-    {
-        ammoSprite.setTextureRect(sf::IntRect((imgWidth*imgCounter), 0, imgWidth, imgHeight));
-        timer.restart();
-        imgCounter++;
-        if (imgCounter > 8)
-            imgCounter = 0;
-    }
+    ammoWay = (ammoWay + (ammoVelocity.x*dt));
+    ammoSprite.move(ammoVelocity*dt);
+}
+
+bool AmmoHeart::ammoRangeCheck()
+{
+    if (abs(ammoWay) > ammoRange)
+        return false;
+    return true;
+}
+
+void AmmoHeart::changeDirection()
+{
+    ammoVelocity.x = ammoVelocity.x * -1;
+    ammoSprite.setTextureRect(sf::IntRect(heartTexture.getSize().x, 0, -heartTexture.getSize().x, heartTexture.getSize().y));
 }

@@ -24,6 +24,7 @@ class Player :public sf::Drawable,
         float jumpHeight;
         sf::Sprite playerSprite;
         bool life;
+        bool faceRight;
         AmmoHeart ammunitionHearts;
         std::vector <AmmoHeart> AmmoH;
 
@@ -39,6 +40,8 @@ class Player :public sf::Drawable,
         void changeLifeStatus();
         bool checkLife(double y);
         void drawAmmo(sf::RenderWindow &window);
+        void eraseArrow(int numer);
+        bool arrowCollision(sf::Sprite &otherSprite, bool destroy);
 };
 
 #endif // PLAYER_H

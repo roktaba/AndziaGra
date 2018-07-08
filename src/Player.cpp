@@ -19,6 +19,7 @@ Player::Player()
     playerSprite.scale(0.5, 0.5);
     imgCounter = 0;
     canJump = true;
+    faceRight = true;
     jumpHeight = 210;
     timer.restart();
     ammoTimer.restart();
@@ -42,6 +43,7 @@ void Player::uptade(float dt)
     ///////////////////////RIGHT
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
+        faceRight = true;
         velocity.x = mvspeed;
         if (timer.getElapsedTime().asSeconds() >= 0.09)
         {
@@ -56,6 +58,7 @@ void Player::uptade(float dt)
     ///////////////////////LEFT
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
+        faceRight = false;
         velocity.x = -mvspeed;
         if (timer.getElapsedTime().asSeconds() >= 0.09)
         {
@@ -83,15 +86,24 @@ void Player::uptade(float dt)
     //////////////////////AMMOH SHOOT
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
-        if (ammoTimer.getElapsedTime().asSeconds() >= 1.0)
+        if (ammoTimer.getElapsedTime().asSeconds() >= 0.4)
         {
             if (AmmoH.size()<10)
             {
                 AmmoH.push_back(ammunitionHearts);
                 AmmoH[AmmoH.size()-1].setNewPossition(playerSprite.getPosition());
+                if (!faceRight)
+                    AmmoH[AmmoH.size()-1].changeDirection();
             }
             ammoTimer.restart();
         }
+    }
+    for (int i=0; i<AmmoH.size(); i++)
+    {
+       if (!AmmoH[i].ammoRangeCheck())
+       {
+           eraseArrow(i);
+       }
     }
     for (int i=0; i<AmmoH.size(); i++)
     {
@@ -194,4 +206,23 @@ void Player::drawAmmo(sf::RenderWindow &window)
     {
         window.draw(AmmoH[i]);
     }
+}
+
+void Player::eraseArrow(int number)
+{
+    AmmoH.erase(AmmoH.begin()+number);
+}
+
+bool Player::arrowCollision(sf::Sprite &otherSprite, bool destroy)
+{
+    for(int i = 0; i<AmmoH.size(); i++)
+    {
+        if (AmmoH[i].ammoCollision(0.0, otherSprite))
+        {
+            if (destroy)
+                eraseArrow(i);
+            return true;
+        }
+    }
+    return false;
 }
