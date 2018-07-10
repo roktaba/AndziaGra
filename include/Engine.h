@@ -8,6 +8,7 @@
 #include "Level.h"
 #include "Background.h"
 #include "DeathCake.h"
+#include "statusBar.h"
 
 
 class Engine :public sf::RenderWindow
@@ -22,7 +23,6 @@ class Engine :public sf::RenderWindow
         Engine();
         ~Engine();
         int runGame(sf::RenderWindow &window);
-
 };
 
 #endif // ENGINE_H

@@ -49,4 +49,3 @@ void DeathCake::uptade(float dt)
         }
     }
 }
-

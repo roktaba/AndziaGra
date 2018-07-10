@@ -14,12 +14,18 @@ Engine::~Engine()
 int Engine::runGame(sf::RenderWindow &window)
 {
     Player player1;
+    statusBar healthCounter;
     sf::View view(sf::Vector2f(0, 0), sf::Vector2f(1280, 960));
+    std::vector <statusBar> healthBar;
     std::vector <Level> platform;
     std::vector <Level> platformNonCol;
     std::vector <Level> platformBlocker;
     std::vector <Cake> ciastko;
     std::vector <DeathCake> martweCiastko;
+    for (int i=0; i<player1.howManyLifes(); i++)
+    {
+        healthBar.push_back(healthCounter);
+    }
     DeathCake DCiastko;
     Cake cake1;
     Level lvl;
@@ -101,10 +107,15 @@ int Engine::runGame(sf::RenderWindow &window)
         }
         if (!player1.checkLife(window.getSize().y))
         {
-            view.setCenter((window.getSize().x/2), (window.getSize().y)/2);
-            window.clear();
-            window.setView(view);
-            return 1;
+            if (healthBar.size()<2)
+            {
+                view.setCenter((window.getSize().x/2), (window.getSize().y)/2);
+                window.clear();
+                window.setView(view);
+                return 1;
+            }
+            healthBar.erase(healthBar.begin()+healthBar.size()-1);
+            player1.setStartPos();
         }
         //COLLISION PART//
         for (int j=0; j<ciastko.size(); j++)
@@ -131,7 +142,11 @@ int Engine::runGame(sf::RenderWindow &window)
         }
         for (int i=0; i<ciastko.size(); i++)
         {
-            player1.collision(0.0, ciastko[i].mobSprite);
+            if (player1.collision(0.0, ciastko[i].mobSprite))
+            {
+                healthBar.erase(healthBar.begin()+healthBar.size()-1);
+                player1.setStartPos();
+            }
         }
         for (int i=0; i<ciastko.size(); i++)
         {
@@ -146,6 +161,14 @@ int Engine::runGame(sf::RenderWindow &window)
         window.clear();
         window.setView(view);
         lvl1Background.setPos(player1.getPlayerPos().x);
+        for (int i=0; i<healthBar.size(); i++)
+        {
+            healthBar[i].update(dt);
+        }
+        for (int i=0; i<healthBar.size(); i++)
+        {
+            healthBar[i].setPos(player1.getPlayerPos().x, i);
+        }
         //DRAW PART//
         for (int i=0; i<platformBlocker.size(); i++)
         {
@@ -168,6 +191,10 @@ int Engine::runGame(sf::RenderWindow &window)
         for (int i=0; i<martweCiastko.size(); i++)
         {
             window.draw(martweCiastko[i]);
+        }
+        for (int i=0; i<healthBar.size(); i++)
+        {
+            window.draw(healthBar[i]);
         }
         player1.drawAmmo(window);
         window.display();

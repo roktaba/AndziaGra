@@ -23,7 +23,7 @@ Player::Player()
     jumpHeight = 210;
     timer.restart();
     ammoTimer.restart();
-    life = true;
+    life = 3;
     playerSprite.setOrigin(-50, 0);
 }
 
@@ -188,15 +188,15 @@ sf::Vector2f Player::getPlayerPos()
 
 void Player::changeLifeStatus()
 {
-    life=false;
+    life--;
 }
 bool Player::checkLife(double y)
 {
     if (getPlayerPos().y > (y+100))
+    {
         changeLifeStatus();
-    if (life==false)
         return false;
-    if (life==true)
+    }
         return true;
 }
 
@@ -225,4 +225,14 @@ bool Player::arrowCollision(sf::Sprite &otherSprite, bool destroy)
         }
     }
     return false;
+}
+
+void Player::setStartPos()
+{
+    playerSprite.setPosition(100, 300);
+}
+
+int Player::howManyLifes()
+{
+    return life;
 }
